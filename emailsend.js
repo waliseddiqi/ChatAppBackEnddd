@@ -8,7 +8,7 @@ sendEmail=async (email)=>{
  
   // create reusable transporter object using the default SMTP transport
   const randomnumber=Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
-  const htmltag="<b>"+"Hellooo world Your confirmation code is:"+randomnumber+"</b>";
+  const htmltag="<b>"+" Your confirmation code is:"+randomnumber+"</b>";
 
   var mail = nodemailer.createTransport({
 

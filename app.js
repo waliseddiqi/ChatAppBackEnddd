@@ -3,9 +3,9 @@ const io = require('socket.io')(server);
 const CreateUser=require("./saveuser")
 const DeleteUser=require("./deleteuser")
 const connecttoDb=require("./main")
-
+connecttoDb.main();
 io.on('connection', client => {
-    connecttoDb.main();
+ 
   client.on('event', data => {
       console.log(data)
       io.emit("msg","Heyy");

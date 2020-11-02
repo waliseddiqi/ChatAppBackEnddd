@@ -21,9 +21,11 @@ connection.once('open',()=>{
 const userrouter=require("./routers/user");
 const emailsender=require("./routers/email_sender")
 const emailverification=require("./routers/email_verification")
+const userauth=require("./routers/userauth")
 app.use("/user",userrouter);
 app.use("/sendEmail",emailsender);
 app.use("/verifyEmail",emailverification);
+app.use("/userauth",userauth);
 app.listen(port,()=>{
     console.log("server created on port 5000 ");
 })
