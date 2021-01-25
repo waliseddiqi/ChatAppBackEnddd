@@ -1,7 +1,7 @@
 const User=require("./models/user_model")
 
-createUser=(username,id,onlineStatus,gender,age)=>{
-const newUser=new User({username,id,onlineStatus,gender,age});
+createUser=(username,userid,age,onlineStatus)=>{
+const newUser=new User({username,userid,id,age,onlineStatus});
 
 return newUser.save()
 

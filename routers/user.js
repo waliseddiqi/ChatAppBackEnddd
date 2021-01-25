@@ -19,6 +19,27 @@ User.deleteOne({username:username,id:id}).then((data)=>res.status(200).json(data
 
 });
 
+router.route("/signupuser").post((req,res)=>{
+  
+    const randomnumber=Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
+    var username=req.body.username;
+    console.log(username);
+    var userid=req.body.username+randomnumber;
+    var age=req.body.age;
+    var onlineStatus=true;
+    const newUser=new User({username,userid,age,onlineStatus});
+
+    newUser.save().then((respond)=>{
+        res.status(200).json(respond);
+
+    }).catch((err)=>res.status(400).send(err));
+
+
+
+
+
+})
+
 /*router.route("/check").post((req,res)=>{
 
 const username=req.body.username;

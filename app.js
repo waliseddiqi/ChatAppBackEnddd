@@ -4,42 +4,46 @@ const CreateUser=require("./saveuser")
 const DeleteUser=require("./deleteuser")
 const connecttoDb=require("./main")
 connecttoDb.main();
+
+function getindex(userid,users){
+  return users.findIndex(x=>x.userid==userid);
+}
+
+var users=[];
+
 io.on('connection', client => {
- 
-  client.on('event', data => {
-      console.log(data)
-      io.emit("msg","Heyy");
-      
-});
-
-  client.on('connected',()=>{
-    
-  })
- /* client.on('disconnect', (data) => { 
-    console.log("disss");
-    DeleteUser(data.username,data.id,true)
-   });*/
-  client.on("userSignup",(data)=>{
-    console.log(data);
-    CreateUser(data.name,client.id,true,data.gender,data.age)
   
-    io.to(client.id).emit('ID', JSON.stringify({"id":client.id}));
-   // users.push({id:client.id,name:data})
-    //console.log(data)
 
-   /* client.broadcast.emit("userconnected",JSON.stringify({
-      id:client.id,
-      name:data
-    }));*/
+//console.log(client.id);
+//When a user gets connected
+ 
+  client.on('connected',(data)=>{
+   // generateid(data.userid);
+    console.log(client.id);
+    console.log(data.userid);
+    //old method
+    index=getindex(data.userid,users);
+    if(index==-1){
+      //if user does not exits add user into list
+      users.push({userid:data.userid,id:client.id});
+    }else{
+      //if users exits first remove user and then update (push it)
+      users.splice(index,1);
+      users.push({userid:data.userid,id:client.id});
+
+    }
+    console.log(users);
+   // */
+  
+  })
+  //when disconnected
+  client.on("disconnected",(data)=>{
+    console.log("user discounted"+data.userid);
+    var index=getindex(data.userid,users);
+    users.splice(index,1);
+    console.log(users);
   })
 
-  client.on("SendPrivateMessage",(data)=>{
-    console.log(data)
-    io.to(data.id).emit('recievePrivateMessage', JSON.stringify({
-      id:data.id,
-      messege:data.messege
-    }));
-  })
 
   client.on("message",(data)=>{
  
@@ -48,6 +52,19 @@ io.on('connection', client => {
       body:data.message
     }));
   });
+  client.on("msg",(data)=>{
+   console.log(client.id);
+ /// console.log(data);
+    console.log("messagesend");
+    users.find((user,index)=>{
+      if(user.userid==data.touserid){
+        //user is online send message!
+        io.to(user.id).emit('pmsg', JSON.stringify({
+         data
+        }));
+      }
+    });
+  })
 
 });
 server.listen(3000);

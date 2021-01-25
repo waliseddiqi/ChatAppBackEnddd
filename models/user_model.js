@@ -10,22 +10,20 @@ const userSchema=new Schema({
         minlength:3,
         maxlength:20,
     },
-    id:{
+    userid:{
         type:String,
         required:true,
-        
         trim:true,
+        unique:true
     },
+   
     age:{
         type:String,
         required:true,
         trim:true
     },
-    gender:{
-        type:String,
-        required:true,
-        trim:true,
-    },
+    
+   
     /*profilePhoto:{
         type:String,
         required:false

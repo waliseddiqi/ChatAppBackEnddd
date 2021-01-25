@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="//www.google.com/jsapi"></script>
+        <script src="./socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            var socket = io("http://localhost:5000");
+          
+            $(function() {
+                $("#join").click(function() {
+                    socket.emit('createroom', "name");
+                });
+                $("#send").click(function() {
+                    socket.emit('connect', "mmmmmmm");
+                    console.log("connecttt");
+                });
+                socket.on("message",(msg)=>{
+                    console.log("mesggae recieved"+msg);
+                })
+
+            });
+        </script>
+    </head>
+    <body>
+        <input type=text>A message</input>
+        <button id="join">Join!</button>
+        <button id="send">Send message!</button>
+    </body>
+</html>

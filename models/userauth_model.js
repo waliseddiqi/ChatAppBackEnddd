@@ -13,7 +13,7 @@ const userSchema=new Schema({
     email:{
         type:String,
         required:true,
-        
+        unique:true,
         trim:true,
     },
     password:{
@@ -21,6 +21,19 @@ const userSchema=new Schema({
         required:true,
         trim:true
     },
+    token:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true
+        
+    },
+    userid:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true
+    }
    
     },{
         timestamps:true,
