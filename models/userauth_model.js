@@ -33,6 +33,11 @@ const userSchema=new Schema({
         required:true,
         trim:true,
         unique:true
+    },
+    notificationId:{
+        type:String,
+        required:false,
+        trim:true
     }
    
     },{

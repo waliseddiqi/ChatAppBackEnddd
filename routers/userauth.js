@@ -64,16 +64,19 @@ router.route("/signup").post((req,res)=>{
     let password=req.body.password;
     let username=req.body.username;
     let userid=req.body.userid;
+    let notificationId=req.body.notificationId;
     var token=jwt.sign({username:username,email:email},privateKey);
     
     bycrpt.hash(password,10,(err,h)=>{
         if(!err){
         let password=h;
-          const newuser=new UserAuth({username,email,password,token,userid})
+          const newuser=new UserAuth({username,email,password,token,userid,notificationId})
           newuser.save().then((resp)=>{
+            console.log(resp);
             res.status(200).send(resp)
           }).catch((err)=>{
               res.status(400).send(err)
+              console.log(err);
           })
         }
    })

@@ -24,15 +24,19 @@ const userSchema=new Schema({
     },
     
    
-    /*profilePhoto:{
+    photourl:{
         type:String,
         required:false
-    },*/
+    },
     onlineStatus:{
         type:Boolean,
         required:true,
     },
-   
+    notificationId:{
+        type:String,
+        required:false,
+        trim:true
+    }
    
     },{
         timestamps:true,
