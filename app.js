@@ -2,7 +2,9 @@ const server = require('http').createServer();
 const io = require('socket.io')(server);
 const CreateUser = require("./saveuser")
 const DeleteUser = require("./deleteuser")
-const connecttoDb = require("./main")
+const connecttoDb = require("./main");
+
+const port=process.env.PORT||6000;
 connecttoDb.main();
 const notification = require("./routers/notification_sender");
 function getindex(userid, users) {
@@ -88,7 +90,7 @@ io.on('connection', client => {
 
 });
 
-server.listen(3000);
+server.listen(port);
 
 
 ///should be fixed
