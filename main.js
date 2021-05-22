@@ -1,5 +1,6 @@
 const express=require('express')
 const cors = require("cors");
+
 const mongoose=require("mongoose");
 require('dotenv').config();
 const app=express();
@@ -9,11 +10,13 @@ const port=process.env.PORT||5000;
 app.use(express.json({limit:'50mb'}));
 
 app.use(express.static('public'))
-const uri=process.env.LOCAL_URI;
+const localuri=process.env.LOCAL_URI;
 
+const uri=process.env.ATLAS_URI;
 
 main=()=>{
-mongoose.connect("mongodb://localhost:27017/Chatapp",{useNewUrlParser:true,useCreateIndex:true,useUnifiedTopology:true})
+    console.log(uri);
+mongoose.connect(uri,{useNewUrlParser:true,useCreateIndex:true,useUnifiedTopology:true})
 const connection=mongoose.connection;
 connection.once('open',()=>{
     console.log("connected to mongodb")

@@ -61,7 +61,7 @@ io.on('connection', client => {
   });
   client.on("msg", (data) => {
 
-    console.log(data);
+  //console.log(data);
 
     var onlineuserid = users.find((user) => {
 

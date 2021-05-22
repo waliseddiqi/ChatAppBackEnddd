@@ -1,19 +1,29 @@
 const router=require("express").Router();
 const io  = require("../app");
-router.route("/testmsg").post((req,res)=>{
+const file = require("fs");
 
-const data = req.body.data;
-console.log(data);
-testMessage(data);
-res.send("hhhh");
+
+function base64_encode(data) {
+  // read binary data
+  var bitmap = file.readFileSync(data);
+  // convert binary data to base64 encoded string
+  return new Buffer.from(bitmap).toString('base64');
+}
+
+router.route("/testmsg").get((req,res)=>{
+
+
+/*file.writeFile("./respond.txt",data,(value)=>{
+  console.log(value);
+})
+*/
+var imagebase = "";
+
+imagebase =  base64_encode("D:/Side_Projects/ChatApp/BackEnd/ChatAppBackEnd/routers/ss.png");
+res.send(imagebase);
+
 
 })
 
-var testMessage = (data)=>{
-    
-    io.io.to(data.touserid).emit('pmsg', JSON.stringify({
-      data
-    }));
-  }
 
 module.exports=router;
