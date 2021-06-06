@@ -1,11 +1,13 @@
-const server = require('http').createServer();
+const express=require('express')
+const app = express();
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const CreateUser = require("./saveuser")
 const DeleteUser = require("./deleteuser")
 const connecttoDb = require("./main");
 
-const port=process.env.PORT||6000;
-connecttoDb.main();
+const port=process.env.PORT||5000;
+connecttoDb.main(app,express);
 const notification = require("./routers/notification_sender");
 function getindex(userid, users) {
   return users.findIndex(x => x.userid == userid);
@@ -99,5 +101,5 @@ io.on('connection', client => {
 
 server.listen(port);
 
-
+console.log("listening to port "+ port);
 ///should be fixed

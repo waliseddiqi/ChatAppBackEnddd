@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const bycrpt=require("bcrypt");
+const bycrpt=require("bcryptjs");
 const UserAuth=require("../models/userauth_model");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user_model");
@@ -14,23 +14,22 @@ UserAuth.find({email}).then(respond=>{
     console.log(respond[0].password);
    //sends token to user so user can login next time without writing password and email 
    //with checkauth route
-    bycrpt.compare(password,respond[0].password).then((result)=>{
-   
-            if(result){
+   bycrpt.compare(password,respond[0].password,(err,result)=>{
+    if(result){
+    
+        //console.log(respond[0].userid);
+         User.find({userid:respond[0].userid}).then(searchres=>{
+             console.log(searchres);
+             res.status(200).json({"result":"true","token":respond[0].token,searchres})
+         })
         
-               //console.log(respond[0].userid);
-                User.find({userid:respond[0].userid}).then(searchres=>{
-                    console.log(searchres);
-                    res.status(200).json({"result":"true","token":respond[0].token,searchres})
-                })
-               
-            }else{
-                res.status(401).json({"result":"false"})
-            }
-            
-        
-       
-    })
+     }else{
+         res.status(401).json({"result":"false"})
+     }
+});
+
+
+    
 }).catch(err=>{
     console.log(err);
     res.status(404).send(err);
@@ -70,17 +69,17 @@ router.route("/signup").post((req,res)=>{
     
     bycrpt.hash(password,10,(err,h)=>{
         if(!err){
-        let password=h;
-          const newuser=new UserAuth({username,email,password,token,userid,notificationId})
-          newuser.save().then((resp)=>{
-            console.log(resp);
-            res.status(200).send(resp)
-          }).catch((err)=>{
-              res.status(400).send(err)
-              console.log(err);
-          })
-        }
-   })
+            let password=h;
+              const newuser=new UserAuth({username,email,password,token,userid,notificationId})
+              newuser.save().then((resp)=>{
+                console.log(resp);
+                res.status(200).send(resp)
+              }).catch((err)=>{
+                  res.status(400).send(err)
+                  console.log(err);
+              })
+            }
+    })
  
    
   
