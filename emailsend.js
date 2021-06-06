@@ -5,14 +5,14 @@ sendEmail=async (email)=>{
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
- 
+  console.log("Email sender here brooo");
   // create reusable transporter object using the default SMTP transport
   const randomnumber=Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
   const htmltag="<b>"+" Your confirmation code is:"+randomnumber+"</b>";
 
   var mail = nodemailer.createTransport({
 
-    service: 'gmail',
+    service: 'Gmail',
     auth: {
       user: 'JohnNode3@gmail.com',
       pass: "12345JohnNode"

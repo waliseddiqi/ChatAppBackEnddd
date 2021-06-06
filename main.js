@@ -12,7 +12,7 @@ app.use(express.json({limit:'50mb'}));
 app.use(express.static('public'))
 const localuri=process.env.LOCAL_URI;
 
-const uri=process.env.ATLAS_URI;
+const uri=process.env.LOCAL_URI;
 
 main=()=>{
     console.log(uri);

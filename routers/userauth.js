@@ -1,6 +1,5 @@
 const router=require("express").Router();
 const bycrpt=require("bcrypt");
-const e = require("express");
 const UserAuth=require("../models/userauth_model");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user_model");
@@ -12,7 +11,8 @@ router.route("/signin").post((req,res)=>{
 let email=req.body.email;
 let password=req.body.password;
 UserAuth.find({email}).then(respond=>{
-   ///sends token to user so user can login next time without writing password and email 
+    console.log(respond[0].password);
+   //sends token to user so user can login next time without writing password and email 
    //with checkauth route
     bycrpt.compare(password,respond[0].password).then((result)=>{
    
@@ -32,6 +32,7 @@ UserAuth.find({email}).then(respond=>{
        
     })
 }).catch(err=>{
+    console.log(err);
     res.status(404).send(err);
 })
 

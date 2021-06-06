@@ -63,7 +63,7 @@ io.on('connection', client => {
   });
   client.on("msg", (data) => {
 
-  //console.log(data);
+ // console.log(data);
 
     var onlineuserid = users.find((user) => {
 
@@ -80,9 +80,16 @@ io.on('connection', client => {
     } 
     else {
       console.log("user is offline");
-      console.log(data);
+      if(!data.isPhoto){
+      
+      
+     // console.log(data);
       notification.SendNotification(data.notificationId,data.username,data.msg);
     }
+  else{
+    notification.SendNotification(data.notificationId,data.username,"Send a aphoto");
+  }
+  }
 
 
   })

@@ -39,7 +39,7 @@ router.route("/signupuser").post(async(req,res)=>{
     var image=req.body.image;
     var format=req.body.format;
     var fullUrl = req.protocol + '://' + req.get('host');
-   
+    console.log(fullUrl+"fulll");
     const randomnumber=Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000
     var username=req.body.username;
     var notificationId=req.body.notificationId;
